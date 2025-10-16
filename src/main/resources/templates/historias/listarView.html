@@ -88,15 +88,20 @@
 <body>
 
 <header>
-    <a th:href="@{/}" class="back-btn"><i class="bi bi-arrow-left"></i> Regresar</a>
-    <h4>Gestión de Historias Clínicas</h4>
+    <a th:href="@{/pacientes}" class="back-btn"><i class="bi bi-arrow-left"></i> Regresar a Pacientes</a>
+    <h4 th:if="${paciente != null}" th:text="'Historias Clínicas de ' + ${paciente.nombres} + ' ' + ${paciente.apellidos}">Historias del Paciente</h4>
+    <h4 th:unless="${paciente != null}">Gestión de Historias Clínicas</h4>
 </header>
 
 <main class="container mt-4">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center px-4 py-3">
-            <span>Historias Clínicas Registradas</span>
-            <a th:href="@{/historias/form}" class="btn btn-success btn-sm">
+            <span th:if="${paciente != null}" th:text="'Historias Clínicas de ' + ${paciente.nombres} + ' ' + ${paciente.apellidos}">Historias del Paciente</span>
+            <span th:unless="${paciente != null}">Historias Clínicas Registradas</span>
+            <a th:if="${paciente != null}" th:href="@{'/historias/form/paciente/' + ${paciente.idPaciente}}" class="btn btn-success btn-sm">
+                <i class="bi bi-file-earmark-plus"></i> Nueva Historia
+            </a>
+            <a th:unless="${paciente != null}" th:href="@{/historias/form}" class="btn btn-success btn-sm">
                 <i class="bi bi-file-earmark-plus"></i> Nueva Historia
             </a>
         </div>
@@ -115,7 +120,8 @@
                     <tbody>
                     <tr th:each="h : ${historias}">
                         <td th:text="${h.idHistoria}"></td>
-                        <td th:text="${h.paciente.nombres + ' ' + h.paciente.apellidos}"></td>
+                        <td th:if="${paciente == null}" th:text="${h.paciente.nombres + ' ' + h.paciente.apellidos}"></td>
+                        <td th:unless="${paciente == null}">-</td>
                         <td th:text="${h.fechaApertura}"></td>
                         <td th:text="${h.observaciones}"></td>
                         <td>

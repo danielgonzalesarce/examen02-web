@@ -327,6 +327,12 @@
                                     <a th:href="@{'/pacientes/editar/' + ${p.idPaciente}}" class="btn-edit">
                                         <i class="bi bi-pencil"></i> Editar
                                     </a>
+                                    <a th:href="@{'/antecedentes/paciente/' + ${p.idPaciente}}" class="btn btn-info btn-sm" style="background: linear-gradient(135deg, #17a2b8, #138496); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 500; transition: all 0.3s ease;">
+                                        <i class="bi bi-clipboard-data"></i> Antecedentes
+                                    </a>
+                                    <a th:href="@{'/historias/paciente/' + ${p.idPaciente}}" class="btn btn-warning btn-sm" style="background: linear-gradient(135deg, #ffc107, #e0a800); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 500; transition: all 0.3s ease;">
+                                        <i class="bi bi-journal-medical"></i> Historias
+                                    </a>
                                     <a th:href="@{'/pacientes/eliminar/' + ${p.idPaciente}}"
                                        class="btn-delete"
                                        onclick="return confirm('¿Seguro que deseas eliminar este paciente?');">

@@ -20,6 +20,11 @@ public class AntecedenteMedicoServiceImpl implements AntecedenteMedicoService {
     }
 
     @Override
+    public List<AntecedenteMedico> listarPorPaciente(Long idPaciente) {
+        return antecedenteRepository.findByPacienteIdPaciente(idPaciente);
+    }
+
+    @Override
     public Optional<AntecedenteMedico> buscarPorId(Long id) {
         return antecedenteRepository.findById(id);
     }

@@ -11,16 +11,23 @@ public class AntecedenteMedico {
     private Long idAntecedente;
 
     @ManyToOne
-    @JoinColumn(name = "idHistoria", nullable = false)
+    @JoinColumn(name = "idPaciente", nullable = false)
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "idHistoria")
     private HistoriaClinica historiaClinica;
 
-    private String tipo; // alergias, enfermedades previas
+    private String tipo; // alergias, enfermedades previas, cirugías
     private String descripcion;
 
     public AntecedenteMedico() {}
 
     public Long getIdAntecedente() { return idAntecedente; }
     public void setIdAntecedente(Long idAntecedente) { this.idAntecedente = idAntecedente; }
+
+    public Paciente getPaciente() { return paciente; }
+    public void setPaciente(Paciente paciente) { this.paciente = paciente; }
 
     public HistoriaClinica getHistoriaClinica() { return historiaClinica; }
     public void setHistoriaClinica(HistoriaClinica historiaClinica) { this.historiaClinica = historiaClinica; }

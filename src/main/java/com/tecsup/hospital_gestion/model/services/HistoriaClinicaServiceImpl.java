@@ -20,6 +20,11 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
     }
 
     @Override
+    public List<HistoriaClinica> listarPorPaciente(Long idPaciente) {
+        return historiaRepository.findByPacienteIdPaciente(idPaciente);
+    }
+
+    @Override
     public Optional<HistoriaClinica> buscarPorId(Long id) {
         return historiaRepository.findById(id);
     }

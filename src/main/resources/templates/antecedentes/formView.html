@@ -90,22 +90,30 @@
 <div class="form-container">
     <div class="title-section">
         <h4>Registrar Antecedente</h4>
-        <a th:href="@{/antecedentes}" class="btn btn-secondary-custom btn-sm">← Regresar</a>
+        <a th:if="${paciente != null}" th:href="@{'/antecedentes/paciente/' + ${paciente.idPaciente}}" class="btn btn-secondary-custom btn-sm">← Regresar</a>
+        <a th:unless="${paciente != null}" th:href="@{/antecedentes}" class="btn btn-secondary-custom btn-sm">← Regresar</a>
     </div>
     <div class="divider"></div>
 
-    <form th:action="@{/antecedentes/guardar}" th:object="${antecedente}" method="post">
+    <form th:action="${paciente != null ? '/antecedentes/guardar/paciente' : '/antecedentes/guardar'}" th:object="${antecedente}" method="post">
 
         <input type="hidden" th:field="*{idAntecedente}"/>
+        <input th:if="${paciente != null}" type="hidden" name="pacienteId" th:value="${paciente.idPaciente}"/>
+
+        <!-- Información del paciente (solo si viene de un paciente específico) -->
+        <div th:if="${paciente != null}" class="mb-3">
+            <label>Paciente</label>
+            <input type="text" class="form-control" th:value="${paciente.nombres + ' ' + paciente.apellidos}" readonly>
+        </div>
 
         <!-- Selección de historia clínica -->
         <div class="mb-3">
-            <label for="historiaClinica">Historia Clínica</label>
-            <select name="historiaClinicaId" class="form-select" id="historiaClinica" required>
-                <option value="">Seleccione una historia clínica</option>
+            <label for="historiaClinica">Historia Clínica (Opcional)</label>
+            <select name="historiaClinicaId" class="form-select" id="historiaClinica">
+                <option value="">Seleccione una historia clínica (opcional)</option>
                 <option th:each="h : ${historias}"
                         th:value="${h.idHistoria}"
-                        th:text="${h.paciente.nombres + ' ' + h.paciente.apellidos + ' - ' + h.fechaApertura}">
+                        th:text="${h.fechaApertura}">
                 </option>
             </select>
         </div>

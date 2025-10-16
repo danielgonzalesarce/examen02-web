@@ -82,8 +82,9 @@
 <body>
 
 <header>
-    <a th:href="@{/historias}" class="back-btn"><i class="bi bi-arrow-left"></i> Regresar</a>
-    <h4>Gestión de Historias Clínicas</h4>
+    <a th:if="${paciente != null}" th:href="@{'/historias/paciente/' + ${paciente.idPaciente}}" class="back-btn"><i class="bi bi-arrow-left"></i> Regresar</a>
+    <a th:unless="${paciente != null}" th:href="@{/historias}" class="back-btn"><i class="bi bi-arrow-left"></i> Regresar</a>
+    <h4 th:text="${titulo}">Gestión de Historias Clínicas</h4>
 </header>
 
 <main class="container mt-4">
@@ -92,8 +93,15 @@
             <!-- ID oculto para edición -->
             <input type="hidden" th:field="*{idHistoria}"/>
 
-            <!-- Selección de Paciente -->
-            <div class="mb-3">
+            <!-- Información del paciente (solo si viene de un paciente específico) -->
+            <div th:if="${paciente != null}" class="mb-3">
+                <label class="form-label fw-semibold">Paciente</label>
+                <input type="text" class="form-control" th:value="${paciente.nombres + ' ' + paciente.apellidos}" readonly>
+                <input type="hidden" name="pacienteId" th:value="${paciente.idPaciente}"/>
+            </div>
+
+            <!-- Selección de Paciente (solo si no viene de un paciente específico) -->
+            <div th:unless="${paciente != null}" class="mb-3">
                 <label for="paciente" class="form-label fw-semibold">Paciente</label>
                 <select name="pacienteId" class="form-select" id="paciente" required>
                     <option value="">Seleccione un paciente</option>

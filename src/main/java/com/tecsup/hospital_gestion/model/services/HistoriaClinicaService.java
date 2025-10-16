@@ -8,6 +8,8 @@ public interface HistoriaClinicaService {
 
     List<HistoriaClinica> listarTodos();
 
+    List<HistoriaClinica> listarPorPaciente(Long idPaciente);
+
     Optional<HistoriaClinica> buscarPorId(Long id);
 
     HistoriaClinica guardar(HistoriaClinica historiaClinica);

@@ -8,6 +8,8 @@ public interface AntecedenteMedicoService {
 
     List<AntecedenteMedico> listarTodos();
 
+    List<AntecedenteMedico> listarPorPaciente(Long idPaciente);
+
     Optional<AntecedenteMedico> buscarPorId(Long id);
 
     AntecedenteMedico guardar(AntecedenteMedico antecedenteMedico);

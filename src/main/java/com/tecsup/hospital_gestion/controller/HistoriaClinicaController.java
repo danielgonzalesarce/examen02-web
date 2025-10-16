@@ -97,4 +97,39 @@ public class HistoriaClinicaController {
 
         return "redirect:/historias"; // Regresa a la lista
     }
+
+    // ========================
+    // LISTAR POR PACIENTE
+    // ========================
+    @GetMapping("/paciente/{idPaciente}")
+    public String listarPorPaciente(@PathVariable("idPaciente") Long idPaciente, Model model) {
+        Paciente paciente = pacienteService.buscarPorId(idPaciente).orElse(null);
+        if (paciente == null) {
+            return "redirect:/pacientes";
+        }
+        
+        List<HistoriaClinica> historias = historiaClinicaService.listarPorPaciente(idPaciente);
+        model.addAttribute("historias", historias);
+        model.addAttribute("paciente", paciente);
+        return "historias/listarView";
+    }
+
+    // ========================
+    // FORMULARIO NUEVO POR PACIENTE
+    // ========================
+    @GetMapping("/form/paciente/{idPaciente}")
+    public String formPorPaciente(@PathVariable("idPaciente") Long idPaciente, Model model) {
+        Paciente paciente = pacienteService.buscarPorId(idPaciente).orElse(null);
+        if (paciente == null) {
+            return "redirect:/pacientes";
+        }
+        
+        HistoriaClinica historia = new HistoriaClinica();
+        historia.setPaciente(paciente);
+        
+        model.addAttribute("historia", historia);
+        model.addAttribute("paciente", paciente);
+        model.addAttribute("titulo", "Registrar Historia Clínica - " + paciente.getNombres() + " " + paciente.getApellidos());
+        return "historias/formView";
+    }
 }
